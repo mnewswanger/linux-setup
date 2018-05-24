@@ -1,0 +1,57 @@
+---
+
+- name: Setup
+  hosts: localhost
+  tasks:
+    - name: Install base packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      become: yes
+      with_items:
+        - apt-transport-https
+        - awscli
+        - ca-certificates
+        - chromium-browser
+        - curl
+        - fonts-hack
+        - git
+        - golang
+        - htop
+        - jq
+        - libappindicator1 # dependency for keybase
+        - notify-osd
+        - openvpn
+        - overlay-scrollbar
+        - software-properties-common
+        - vim
+        - zsh
+    # Install
+    # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    # sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) test"
+    # sudo apt-get update
+    - name: Install docker
+      become: yes
+      apt:
+        name: docker-ce
+        state: present
+    - name: Set up startup services
+      become: yes
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      with_items:
+        - docker
+    - name: Get the username running the deploy
+      local_action: command whoami
+      register: running_user_cmd
+    - name: Set username fact
+      set_fact:
+        running_user: "{{ running_user_cmd.stdout }}"
+    # sudo groupadd docker
+    # sudo usermod -aG docker mike
+    - name: "Set up .zshrc"
+      template:
+        src: ".zshrc.j2"
+        dest: "~/.zshrc"
