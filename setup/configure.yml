@@ -12,7 +12,6 @@
         - apt-transport-https
         - awscli
         - ca-certificates
-        - chromium-browser
         - curl
         - fonts-hack
         - git
@@ -20,20 +19,33 @@
         - htop
         - jq
         - libappindicator1 # dependency for keybase
+        - lm-sensors
         - notify-osd
         - openvpn
         - overlay-scrollbar
+        - packer
+        - pm-utils
+        - scala
         - software-properties-common
+        - vagrant
         - vim
+        - virtualbox
         - zsh
-    # Install
+    # Docker
     # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     # sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) test"
-    # sudo apt-get update
     - name: Install docker
       become: yes
       apt:
         name: docker-ce
+        state: present
+    # SBT
+    # echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+    # sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+    - name: Install docker
+      become: yes
+      apt:
+        name: sbt
         state: present
     - name: Set up startup services
       become: yes
@@ -49,9 +61,18 @@
     - name: Set username fact
       set_fact:
         running_user: "{{ running_user_cmd.stdout }}"
-    # sudo groupadd docker
-    # sudo usermod -aG docker mike
+    - name: Create docker group
+      group:
+        name: docker
+        state: present
+    - name: Add current user to docker group
+      user:
+        name: "{{ running_user }}"
+        groups:
+          - docker
+        append: yes
     - name: "Set up .zshrc"
       template:
         src: ".zshrc.j2"
         dest: "~/.zshrc"
+    # sudo vim /etc/sysctl.conf fs.inotify.max_user_watches=524288
