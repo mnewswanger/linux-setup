@@ -16,13 +16,16 @@ ansible-playbook "${DIR}"/setup/configure.yml
 # sudo apt-get install -f
 # run_keybase
 
+go get github.com/derekparker/delve/cmd/dlv
+go get github.com/golang/dep/cmd/dep
+
 if [ ! -d ~/.oh-my-zsh ]; then
     "${DIR}"/setup/oh-my-zsh.sh
 fi
 
 echo "Pre-Requisite setup complete.  The following applications to be installed manually:"
 if ! dpkg -l | grep ^ii | grep google-chrome 2>&1 > /dev/null; then
-    echo "  - Chrome (Manual)"
+    echo "  - Chrome (Manual - .deb)"
 fi
 if ! snap list | grep slack 2>&1 > /dev/null; then
     echo "  - Slack (Snap)"
@@ -39,6 +42,6 @@ fi
 if ! snap list | grep vscode 2>&1 > /dev/null; then
     echo "  - Visual Studio Code (Snap)"
 fi
-if ! snap list | grep slack 2>&1 > /dev/null; then
-    echo "  - Zoom (Manual)"
+if ! dpkg -l | grep ^ii | grep zoom 2>&1 > /dev/null; then
+    echo "  - Zoom (Manual - .deb)"
 fi
