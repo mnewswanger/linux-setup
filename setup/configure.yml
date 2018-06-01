@@ -19,6 +19,7 @@
         - htop
         - jq
         - libappindicator1 # dependency for keybase
+        - libgconf-2-4 # dependency for keybase
         - lm-sensors
         - notify-osd
         - openvpn
@@ -31,21 +32,18 @@
         - vim
         - virtualbox
         - zsh
-    # Docker
-    # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    # sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) test"
+    - name: Add docker repo key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+      become: yes
+    - name: Set up Docker repo
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic test
+      become: yes
     - name: Install docker
       become: yes
       apt:
         name: docker-ce
-        state: present
-    # SBT
-    # echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-    # sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
-    - name: Install docker
-      become: yes
-      apt:
-        name: sbt
         state: present
     - name: Set up startup services
       become: yes
@@ -71,8 +69,29 @@
         groups:
           - docker
         append: yes
-    - name: "Set up .zshrc"
+      become: yes
+    - name: Add sbt repo key
+      apt_key:
+        keyserver: hkp://keyserver.ubuntu.com:80
+        id: 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+      become: yes
+    - name: Add sbt repo
+      apt_repository:
+        repo: deb https://dl.bintray.com/sbt/debian /
+      become: yes
+    - name: Install sbt
+      apt:
+        name: sbt
+        state: present
+      become: yes
+    - name: Set up .zshrc
       template:
-        src: ".zshrc.j2"
-        dest: "~/.zshrc"
-    # sudo vim /etc/sysctl.conf fs.inotify.max_user_watches=524288
+        src: .zshrc.j2
+        dest: ~/.zshrc
+    - name: Set up file watch limit for vscode
+      lineinfile:
+        path: /etc/sysctl.conf
+        line: fs.inotify.max_user_watches=524288
+        regexp: ^fs\.inotify\.max_user_watches=
+      become: yes
+

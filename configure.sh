@@ -8,14 +8,6 @@ sudo apt install -y ansible
 
 ansible-playbook "${DIR}"/setup/configure.yml
 
-# curl -O https://prerelease.keybase.io/keybase_amd64.deb
-# # if you see an error about missing `libappindicator1`
-# # from the next command, you can ignore it, as the
-# # subsequent command corrects it
-# sudo dpkg -i keybase_amd64.deb
-# sudo apt-get install -f
-# run_keybase
-
 go get github.com/derekparker/delve/cmd/dlv
 go get github.com/golang/dep/cmd/dep
 
@@ -23,25 +15,40 @@ if [ ! -d ~/.oh-my-zsh ]; then
     "${DIR}"/setup/oh-my-zsh.sh
 fi
 
-echo "Pre-Requisite setup complete.  The following applications to be installed manually:"
 if ! dpkg -l | grep ^ii | grep google-chrome 2>&1 > /dev/null; then
-    echo "  - Chrome (Manual - .deb)"
+    echo "Google Chrome needs to be installed manually (https://www.google.com/chrome/)"
 fi
+
+if ! dpkg -l | grep ^ii | grep keybase 2>&1 > /dev/null; then
+    curl -o /tmp/keybase_amd64.deb https://prerelease.keybase.io/keybase_amd64.deb
+    sudo dpkg -i /tmp/keybase_amd64.deb
+    sudo apt-get install -f
+    run_keybase
+fi
+
+if ! dpkg -l | grep ^ii | grep sbt 2>&1 > /dev/null; then
+        # SBT
+    echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+    sudo apt-get update && sudo apt-get install sbt
+fi
+
 if ! snap list | grep slack 2>&1 > /dev/null; then
-    echo "  - Slack (Snap)"
+    sudo snap install slack --classic
 fi
 if ! snap list | grep spotify 2>&1 > /dev/null; then
-    echo "  - Spotify (Snap)"
+    sudo snap install spotify
 fi
 if ! snap list | grep sublime-text 2>&1 > /dev/null; then
-    echo "  - Sublime Text (Snap)"
+    sudo snap install sublime-text --classic
 fi
 if ! which terraform 2>&1 > /dev/null; then
-    echo "  - Terraform (Manual)"
+    echo "Terraform needs to be installed manually (https://www.terraform.io/downloads.html)"
 fi
 if ! snap list | grep vscode 2>&1 > /dev/null; then
-    echo "  - Visual Studio Code (Snap)"
+    sudo snap install vscode --classic
 fi
 if ! dpkg -l | grep ^ii | grep zoom 2>&1 > /dev/null; then
-    echo "  - Zoom (Manual - .deb)"
+	echo "Zoom needs to be installed manually (https://zoom.us/download#client_4meeting)"
 fi
+
