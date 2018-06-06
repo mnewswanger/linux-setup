@@ -22,6 +22,8 @@
         - libgconf-2-4 # dependency for keybase
         - lm-sensors
         - notify-osd
+        - openjdk-8-jre
+        - openjdk-8-jdk
         - openvpn
         - overlay-scrollbar
         - packer
