@@ -37,3 +37,8 @@ After completing the above, you'll have a system w/ full encryption that will wo
 # Provisioning
 
 To provision, run `configure.sh` at the project root.  This will configure everything it can automatically, but there are a few manual installations required for packages outside standard package managers.
+
+# Misc
+
+Dell XPS 9570 with Intel 9260 wifi has bad wifi performance on kernels older than 4.16; upgrading the kernel to 4.16 fixes this.  This also provides better system stability on the platform as well.
+
