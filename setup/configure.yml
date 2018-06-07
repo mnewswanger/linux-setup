@@ -40,6 +40,7 @@
         state: directory
         name: "{{ item }}"
       with_items:
+        - ~/.config/fusuma
         - ~/.icons
         - ~/.themes
     - name: Add docker repo key
@@ -73,11 +74,12 @@
       group:
         name: docker
         state: present
-    - name: Add current user to docker group
+    - name: Add current user to groups
       user:
         name: "{{ running_user }}"
         groups:
           - docker
+          - input
         append: yes
       become: yes
     - name: Add sbt repo key
@@ -112,6 +114,10 @@
       git:
         repo: https://github.com/paullinuxthemer/gnome-osc-themes.git
         dest: /tmp/gnome-osc-themes
+    - name: Set up fusuma config
+      copy:
+        src: fusuma-config.yml
+        dest: ~/.config/fusuma/config.yml
     - name: Add OSX Dark theme
       synchronize:
         src: /tmp/gnome-osc-themes/Gnome-OSC-SpaceGrey--2-themes/Gnome-OSC-Space-Grey-(transparent)/

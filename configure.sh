@@ -58,3 +58,7 @@ echo "    gsettings set org.gnome.desktop.interface gtk-theme 'Gnome-OSC-Space-G
 echo "    gsettings set org.gnome.desktop.interface icon-theme 'la-capitaine-icon-theme'"
 echo "    gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'"
 echo "    gsettings set org.gnome.desktop.wm.preferences theme 'Gnome-OSC-Space-Grey-(transparent)'"
+echo ""
+echo "  To enable multi-touch support, add `fusuma` to startup applications"
+echo ""
+
