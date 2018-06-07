@@ -15,6 +15,7 @@
         - curl
         - fonts-hack
         - git
+        - gnome-tweaks
         - golang
         - htop
         - jq
@@ -34,6 +35,13 @@
         - vim
         - virtualbox
         - zsh
+    - name: Set up folders
+      file:
+        state: directory
+        name: "{{ item }}"
+      with_items:
+        - ~/.icons
+        - ~/.themes
     - name: Add docker repo key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
@@ -96,4 +104,23 @@
         line: fs.inotify.max_user_watches=524288
         regexp: ^fs\.inotify\.max_user_watches=
       become: yes
-
+    - name: Add icon set
+      git:
+        repo: https://github.com/keeferrourke/la-capitaine-icon-theme.git
+        dest: ~/.icons/la-capitaine-icon-theme
+    - name: Download OSX themes
+      git:
+        repo: https://github.com/paullinuxthemer/gnome-osc-themes.git
+        dest: /tmp/gnome-osc-themes
+    - name: Add OSX Dark theme
+      synchronize:
+        src: /tmp/gnome-osc-themes/Gnome-OSC-SpaceGrey--2-themes/Gnome-OSC-Space-Grey-(transparent)/
+        dest: ~/.themes/Gnome-OSC-Space-Grey-(transparent)
+    - name: Add OSX High Sierra theme
+      synchronize:
+        src: /tmp/gnome-osc-themes/Gnome-OSC-HS--2-themes/Gnome-OSC-HS-(transparent)/
+        dest: ~/.themes/Gnome-OSC-HS-(transparent)
+    - name: Add OSX High Sierra light theme
+      synchronize:
+        src: /tmp/gnome-osc-themes/Gnome-OSC-HS-light-menu-- 2-themes/Gnome-OSC-HS-(transparent)-light-menu/
+        dest: ~/.themes/Gnome-OSC-HS-(transparent)-light-menu

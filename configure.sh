@@ -52,3 +52,9 @@ if ! dpkg -l | grep ^ii | grep zoom 2>&1 > /dev/null; then
 	echo "Zoom needs to be installed manually (https://zoom.us/download#client_4meeting)"
 fi
 
+echo "Setup complete:"
+echo "  To enable OSX style theme, run the following:"
+echo "    gsettings set org.gnome.desktop.interface gtk-theme 'Gnome-OSC-Space-Grey-(transparent)'"
+echo "    gsettings set org.gnome.desktop.interface icon-theme 'la-capitaine-icon-theme'"
+echo "    gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'"
+echo "    gsettings set org.gnome.desktop.wm.preferences theme 'Gnome-OSC-Space-Grey-(transparent)'"
