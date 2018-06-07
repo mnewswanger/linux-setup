@@ -21,7 +21,7 @@ pinch:
   in:
     command: 'xdotool key ctrl+plus'
   out:
-     command: 'xdotool key ctrl+minus'
+    command: 'xdotool key ctrl+minus'
 
 threshold:
   swipe: 0.4
@@ -30,4 +30,3 @@ threshold:
 interval:
   swipe: 0.8
   pinch: 0.1
-
