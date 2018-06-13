@@ -9,6 +9,7 @@
         state: present
       become: yes
       with_items:
+        - alacarte
         - apt-transport-https
         - awscli
         - ca-certificates

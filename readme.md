@@ -42,3 +42,7 @@ To provision, run `configure.sh` at the project root.  This will configure every
 
 Dell XPS 9570 with Intel 9260 wifi has bad wifi performance on kernels older than 4.16; upgrading the kernel to 4.16 fixes this.  This also provides better system stability on the platform as well.
 
+Upgrading the kernel can be done by downloading and installing the `linux-headers`, `linux-headers-generic`, `linux-image-generic`, and `linux-modules-generic` deb packages and installing w/ `dpkg -i` then updating grub with the grub setup commands above.
+
+Spotify may not display when using current Nvidia drivers; this can be fixed by opening `Main Menu` application and adding `--disable-gpu` to the startup flags under startup properties.
+
