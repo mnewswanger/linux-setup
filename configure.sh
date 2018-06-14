@@ -19,6 +19,10 @@ if ! dpkg -l | grep ^ii | grep google-chrome 2>&1 > /dev/null; then
     echo "Google Chrome needs to be installed manually (https://www.google.com/chrome/)"
 fi
 
+if ! snap list | grep intellij-idea 2>&1 > /dev/null; then
+    snap install intellij-idea-ultimate --classic
+fi
+
 if ! dpkg -l | grep ^ii | grep keybase 2>&1 > /dev/null; then
     curl -o /tmp/keybase_amd64.deb https://prerelease.keybase.io/keybase_amd64.deb
     sudo dpkg -i /tmp/keybase_amd64.deb
@@ -36,18 +40,23 @@ fi
 if ! snap list | grep slack 2>&1 > /dev/null; then
     sudo snap install slack --classic
 fi
+
 if ! snap list | grep spotify 2>&1 > /dev/null; then
     sudo snap install spotify
 fi
+
 if ! snap list | grep sublime-text 2>&1 > /dev/null; then
     sudo snap install sublime-text --classic
 fi
+
 if ! which terraform 2>&1 > /dev/null; then
     echo "Terraform needs to be installed manually (https://www.terraform.io/downloads.html)"
 fi
+
 if ! snap list | grep vscode 2>&1 > /dev/null; then
     sudo snap install vscode --classic
 fi
+
 if ! dpkg -l | grep ^ii | grep zoom 2>&1 > /dev/null; then
 	echo "Zoom needs to be installed manually (https://zoom.us/download#client_4meeting)"
 fi
