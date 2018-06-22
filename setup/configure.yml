@@ -30,6 +30,7 @@
         - overlay-scrollbar
         - packer
         - pm-utils
+        - retext
         - scala
         - software-properties-common
         - vagrant
@@ -42,6 +43,7 @@
         name: "{{ item }}"
       with_items:
         - ~/.config/fusuma
+        - ~/.config/ReText project
         - ~/.icons
         - ~/.themes
     - name: Add docker repo key
@@ -131,3 +133,8 @@
       synchronize:
         src: /tmp/gnome-osc-themes/Gnome-OSC-HS-light-menu-- 2-themes/Gnome-OSC-HS-(transparent)-light-menu/
         dest: ~/.themes/Gnome-OSC-HS-(transparent)-light-menu
+    - name:
+      synchronize:
+        src: retext-config/
+        dest: ~/.config/ReText project/
+
