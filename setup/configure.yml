@@ -13,6 +13,7 @@
         - apt-transport-https
         - awscli
         - ca-certificates
+        - cpufrequtils
         - curl
         - fonts-hack
         - git
