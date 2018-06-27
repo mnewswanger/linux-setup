@@ -34,9 +34,7 @@
         - retext
         - scala
         - software-properties-common
-        - vagrant
         - vim
-        - virtualbox
         - zsh
     - name: Set up folders
       file:
@@ -47,6 +45,37 @@
         - ~/.config/ReText project
         - ~/.icons
         - ~/.themes
+    - name: Get the username running the deploy
+      local_action: command whoami
+      register: running_user_cmd
+    - name: Set username fact
+      set_fact:
+        running_user: "{{ running_user_cmd.stdout }}"
+    - name:
+      synchronize:
+        src: retext-config/
+        dest: ~/.config/ReText project/
+
+    # Virtualbox Installation
+    - name:
+      apt_key:
+        url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+      become: yes
+    - name: Set up Virtualbox repo
+      apt_repository:
+        repo: deb https://download.virtualbox.org/virtualbox/debian bionic contrib
+      become: yes
+    - name: Install virtualbox packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      become: yes
+      with_items:
+        - vagrant
+        - virtualbox-5.2
+      become: yes
+
+    # Docker Installation
     - name: Add docker repo key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
@@ -68,12 +97,6 @@
         enabled: yes
       with_items:
         - docker
-    - name: Get the username running the deploy
-      local_action: command whoami
-      register: running_user_cmd
-    - name: Set username fact
-      set_fact:
-        running_user: "{{ running_user_cmd.stdout }}"
     - name: Create docker group
       group:
         name: docker
@@ -86,6 +109,8 @@
           - input
         append: yes
       become: yes
+
+    # Scala Installation
     - name: Add sbt repo key
       apt_key:
         keyserver: hkp://keyserver.ubuntu.com:80
@@ -110,6 +135,8 @@
         line: fs.inotify.max_user_watches=524288
         regexp: ^fs\.inotify\.max_user_watches=
       become: yes
+
+      # Appearance Customization
     - name: Add icon set
       git:
         repo: https://github.com/keeferrourke/la-capitaine-icon-theme.git
@@ -134,8 +161,3 @@
       synchronize:
         src: /tmp/gnome-osc-themes/Gnome-OSC-HS-light-menu-- 2-themes/Gnome-OSC-HS-(transparent)-light-menu/
         dest: ~/.themes/Gnome-OSC-HS-(transparent)-light-menu
-    - name:
-      synchronize:
-        src: retext-config/
-        dest: ~/.config/ReText project/
-
