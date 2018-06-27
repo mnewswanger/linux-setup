@@ -110,7 +110,7 @@
         append: yes
       become: yes
 
-    # Scala Installation
+    # Scala sbt Installation
     - name: Add sbt repo key
       apt_key:
         keyserver: hkp://keyserver.ubuntu.com:80
