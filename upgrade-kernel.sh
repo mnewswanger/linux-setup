@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 KERNEL_VERSION=$1
 VERSION_REGEX="linux-image-(unsigned-)?$KERNEL_VERSION-([0-9]+)-generic_$KERNEL_VERSION-[0-9]+\.([0-9]+)_amd64.deb"
 
