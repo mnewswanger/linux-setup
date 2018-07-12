@@ -136,6 +136,16 @@
         regexp: ^fs\.inotify\.max_user_watches=
       become: yes
 
+    # ReText configuration
+    - name:
+      copy:
+        src: retext-config/github.css
+        dest: ~/.config/ReText project/
+    - name:
+      template:
+        src: retext-config/ReText.conf
+        dest: ~/.config/ReText project/
+
       # Appearance Customization
     - name: Add icon set
       git:
