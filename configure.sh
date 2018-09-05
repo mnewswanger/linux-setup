@@ -61,6 +61,13 @@ if ! dpkg -l | grep ^ii | grep zoom 2>&1 > /dev/null; then
 	echo "Zoom needs to be installed manually (https://zoom.us/download#client_4meeting)"
 fi
 
+if [ ! -d ~/.local/share/gnome-shell/extensions/putWindow@clemens.lab21.org ]; then
+    curl -L https://github.com/negesti/gnome-shell-extensions-negesti/archive/v23.zip -o /tmp/put-windows.zip
+    mkdir ~/.local/share/gnome-shell/extensions/putWindow@clemens.lab21.org
+    unzip /tmp/put-windows.zip -d ~/.local/share/gnome-shell/extensions/putWindow@clemens.lab21.org
+    gnome-shell-extension-tool -e putWindow@clemens.lab21.org
+fi
+
 echo "Setup complete:"
 echo "  To enable OSX style theme, run the following:"
 echo "    gsettings set org.gnome.desktop.interface gtk-theme 'Gnome-OSC-Space-Grey-(transparent)'"
@@ -70,4 +77,3 @@ echo "    gsettings set org.gnome.desktop.wm.preferences theme 'Gnome-OSC-Space-
 echo ""
 echo "  To enable multi-touch support, add \`fusuma\` to startup applications"
 echo ""
-

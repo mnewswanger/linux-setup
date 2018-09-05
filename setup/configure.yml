@@ -16,6 +16,7 @@
         - cpufrequtils
         - curl
         - fonts-hack
+        - gimp
         - git
         - gnome-tweaks
         - golang
@@ -24,6 +25,7 @@
         - libappindicator1 # dependency for keybase
         - libgconf-2-4 # dependency for keybase
         - lm-sensors
+        - mp3info
         - notify-osd
         - openjdk-8-jre
         - openjdk-8-jdk
@@ -134,6 +136,32 @@
         path: /etc/sysctl.conf
         line: fs.inotify.max_user_watches=524288
         regexp: ^fs\.inotify\.max_user_watches=
+      become: yes
+
+    # Audio recording
+    - name: Add audo recorder repo
+      apt_repository:
+        repo: ppa:audio-recorder/ppa
+      become: yes
+    - name: Install audio-recorder
+      apt:
+        name: audio-recorder
+        state: present
+      become: yes
+
+    # GCP CLI
+    - name: Add GCP SDK key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      become: yes
+    - name: Add GCP SDK repo
+      apt_repository:
+        repo: deb http://packages.cloud.google.com/apt cloud-sdk-bionic main
+      become: yes
+    - name: Install GCP SDK
+      apt:
+        name: google-cloud-sdk
+        state: present
       become: yes
 
     # ReText configuration
