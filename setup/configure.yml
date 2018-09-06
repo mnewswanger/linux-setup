@@ -84,7 +84,7 @@
       become: yes
     - name: Set up Docker repo
       apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic test
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic edge
       become: yes
     - name: Install docker
       become: yes
