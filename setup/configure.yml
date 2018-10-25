@@ -33,6 +33,7 @@
         - overlay-scrollbar
         - packer
         - pm-utils
+        - resolvconf
         - retext
         - scala
         - software-properties-common
@@ -57,6 +58,13 @@
       synchronize:
         src: retext-config/
         dest: ~/.config/ReText project/
+
+    # OpenVPN config
+    - name: Set up openvpn config folder
+      file:
+        state: directory
+        name: ~/.ovpn
+        mode: 0700
 
     # Virtualbox Installation
     - name:
