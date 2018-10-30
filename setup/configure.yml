@@ -20,6 +20,7 @@
         - git
         - gnome-tweaks
         - golang
+        - gvfs-bin
         - htop
         - jq
         - libappindicator1 # dependency for keybase
