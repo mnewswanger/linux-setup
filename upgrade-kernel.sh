@@ -12,7 +12,7 @@ else
     exit 1
 fi
 
-VERSION_BASE_URL="http://kernel.ubuntu.com/~kernel-ppa/mainline/v${KERNEL_VERSION}/"
+VERSION_BASE_URL="https://kernel.ubuntu.com/~kernel-ppa/mainline/v${KERNEL_VERSION}/"
 
 KERNEL_IMAGE_FILENAME=$(curl "${VERSION_BASE_URL}" 2>/dev/null | grep -m 1 -o -E "${VERSION_REGEX}" | head -1)
 
