@@ -23,11 +23,13 @@
         - gvfs-bin
         - htop
         - jq
+        - kubectl
         - libappindicator1 # dependency for keybase
         - libgconf-2-4 # dependency for keybase
         - lm-sensors
         - mp3info
         - notify-osd
+        - nvidia-driver-415
         - openjdk-8-jre
         - openjdk-8-jdk
         - openvpn
@@ -40,6 +42,10 @@
         - software-properties-common
         - vim
         - zsh
+    - name: Create .env-secrets
+      file:
+        state: touch
+        name: ~/.env-secrets
     - name: Set up folders
       file:
         state: directory
