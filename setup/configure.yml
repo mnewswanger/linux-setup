@@ -27,6 +27,7 @@
         - libappindicator1 # dependency for keybase
         - libgconf-2-4 # dependency for keybase
         - lm-sensors
+        - maven
         - mp3info
         - notify-osd
         - nvidia-driver-415
@@ -89,7 +90,7 @@
       become: yes
       with_items:
         - vagrant
-        - virtualbox-5.2
+        - virtualbox-6.0
       become: yes
 
     # Docker Installation
