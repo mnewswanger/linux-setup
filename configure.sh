@@ -37,10 +37,6 @@ if ! dpkg -l | grep ^ii | grep sbt 2>&1 > /dev/null; then
     sudo apt-get update && sudo apt-get install sbt
 fi
 
-if ! snap list | grep slack 2>&1 > /dev/null; then
-    sudo snap install slack --classic
-fi
-
 if ! snap list | grep spotify 2>&1 > /dev/null; then
     sudo snap install spotify
 fi
