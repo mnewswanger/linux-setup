@@ -49,10 +49,6 @@ if ! which terraform 2>&1 > /dev/null; then
     echo "Terraform needs to be installed manually (https://www.terraform.io/downloads.html)"
 fi
 
-if ! snap list | grep vscode 2>&1 > /dev/null; then
-    sudo snap install vscode --classic
-fi
-
 if ! dpkg -l | grep ^ii | grep zoom 2>&1 > /dev/null; then
 	echo "Zoom needs to be installed manually (https://zoom.us/download#client_4meeting)"
 fi
