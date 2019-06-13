@@ -48,6 +48,6 @@ Spotify may not display when using current Nvidia drivers; this can be fixed by 
 
 # Possible missing firmware warnings
 
-`git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git`
+Download from https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/i915
 `cp *.bin /lib/firmware/i915/`
 
