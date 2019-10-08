@@ -46,3 +46,8 @@ Upgrading the kernel can be done by downloading and installing the `linux-header
 
 Spotify may not display when using current Nvidia drivers; this can be fixed by opening `Main Menu` application and adding `--disable-gpu` to the startup flags under startup properties.
 
+# Possible missing firmware warnings
+
+Download from https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/i915
+`cp *.bin /lib/firmware/i915/`
+
