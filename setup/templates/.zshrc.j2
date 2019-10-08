@@ -55,6 +55,7 @@ plugins=(aws docker git golang kubectl terraform vagrant)
 
 export GOPATH="/home/{{ running_user }}/go"
 export PATH="/home/{{ running_user }}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$GOPATH/bin:/snap/bin"
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
