@@ -3,6 +3,25 @@
 - name: Setup
   hosts: localhost
   tasks:
+    - name: Get the username running the deploy
+      local_action: command whoami
+      register: running_user_cmd
+    - name: Set username fact
+      set_fact:
+        running_user: "{{ running_user_cmd.stdout }}"
+    - name: "Download powerlevel10k zsh theme"
+      git:
+        repo: https://github.com/romkatv/powerlevel10k.git
+        dest: "~/.oh-my-zsh/custom/themes/powerlevel10k"
+        depth: 1
+    - name: Set up .zshrc
+      template:
+        src: zshrc.j2
+        dest: ~/.zshrc
+    - name: Set up .p10k.zsh
+      copy:
+        src: p10k.zsh
+        dest: ~/.p10k.zsh
     - name: Install base packages
       apt:
         name: "{{ item }}"
@@ -20,7 +39,6 @@
         - git
         - gnome-tweaks
         - golang
-        - gvfs-bin
         - htop
         - jq
         - libappindicator1 # dependency for keybase
@@ -141,10 +159,6 @@
         name: sbt
         state: present
       become: yes
-    - name: Set up .zshrc
-      template:
-        src: .zshrc.j2
-        dest: ~/.zshrc
     - name: Set up file watch limit for vscode
       lineinfile:
         path: /etc/sysctl.conf
