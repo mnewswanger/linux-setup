@@ -41,6 +41,10 @@ if ! snap list | grep spotify 2>&1 > /dev/null; then
     sudo snap install spotify
 fi
 
+if ! snap list | grep slack 2>&1 > /dev/null; then
+    sudo snap install slack --classic
+fi
+
 if ! snap list | grep sublime-text 2>&1 > /dev/null; then
     sudo snap install sublime-text --classic
 fi

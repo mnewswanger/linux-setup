@@ -23,16 +23,14 @@
         - gvfs-bin
         - htop
         - jq
-        - kubectl
         - libappindicator1 # dependency for keybase
         - libgconf-2-4 # dependency for keybase
         - lm-sensors
         - maven
         - mp3info
         - notify-osd
-        - nvidia-driver-415
-        - openjdk-8-jre
-        - openjdk-8-jdk
+        - openjdk-11-jre
+        - openjdk-11-jdk
         - openvpn
         - overlay-scrollbar
         - packer
@@ -81,16 +79,16 @@
       become: yes
     - name: Set up Virtualbox repo
       apt_repository:
-        repo: deb https://download.virtualbox.org/virtualbox/debian bionic contrib
+        repo: deb https://download.virtualbox.org/virtualbox/debian focal contrib
       become: yes
-    - name: Install virtualbox packages
+    - name: Install Virtualbox packages
       apt:
         name: "{{ item }}"
         state: present
       become: yes
       with_items:
         - vagrant
-        - virtualbox-6.0
+        - virtualbox
       become: yes
 
     # Docker Installation
