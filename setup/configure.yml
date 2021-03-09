@@ -39,6 +39,7 @@
         - git
         - gnome-tweaks
         - golang
+        - graphviz
         - htop
         - jq
         - libappindicator1 # dependency for keybase
