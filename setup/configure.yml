@@ -24,42 +24,41 @@
         dest: ~/.p10k.zsh
     - name: Install base packages
       apt:
-        name: "{{ item }}"
+        name:
+          - alacarte
+          - apt-transport-https
+          - awscli
+          - ca-certificates
+          - cpufrequtils
+          - curl
+          - fonts-hack
+          - gimp
+          - git
+          - gnome-tweaks
+          - golang
+          - graphviz
+          - htop
+          - jq
+          - libappindicator1 # dependency for keybase
+          - libgconf-2-4 # dependency for keybase
+          - lm-sensors
+          - maven
+          - mp3info
+          - notify-osd
+          - openjdk-11-jre
+          - openjdk-11-jdk
+          - openvpn
+          - overlay-scrollbar
+          - packer
+          - pm-utils
+          - resolvconf
+          - retext
+          - scala
+          - software-properties-common
+          - vim
+          - zsh
         state: present
       become: yes
-      with_items:
-        - alacarte
-        - apt-transport-https
-        - awscli
-        - ca-certificates
-        - cpufrequtils
-        - curl
-        - fonts-hack
-        - gimp
-        - git
-        - gnome-tweaks
-        - golang
-        - graphviz
-        - htop
-        - jq
-        - libappindicator1 # dependency for keybase
-        - libgconf-2-4 # dependency for keybase
-        - lm-sensors
-        - maven
-        - mp3info
-        - notify-osd
-        - openjdk-11-jre
-        - openjdk-11-jdk
-        - openvpn
-        - overlay-scrollbar
-        - packer
-        - pm-utils
-        - resolvconf
-        - retext
-        - scala
-        - software-properties-common
-        - vim
-        - zsh
     - name: Create .env-secrets
       file:
         state: touch
@@ -102,12 +101,10 @@
       become: yes
     - name: Install Virtualbox packages
       apt:
-        name: "{{ item }}"
+        name:
+          - vagrant
+          - virtualbox-6.1
         state: present
-      become: yes
-      with_items:
-        - vagrant
-        - virtualbox
       become: yes
 
     # Docker Installation
